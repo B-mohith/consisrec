@@ -65,7 +65,7 @@ def main():
     parser.add_argument('--epochs', type=int, default=10, metavar='N', help='number of epochs to train')
     parser.add_argument('--load_from_checkpoint', type=bool, default=False, help='Load from checkpoint or not')
     parser.add_argument('--device', type=str, default='cpu', help='cpu or cuda')
-    parser.add_argument('--data', type = str, default='movie_titles')
+    parser.add_argument('--data', type = str, default='ciao')
     parser.add_argument('--weight_decay', type=float, default=0.0001, help='weight_decay')
     args = parser.parse_args()
 
@@ -73,8 +73,7 @@ def main():
     device = torch.device(args.device)
 
     embed_dim = args.embed_dim
-    df=pd.read_excel("data\movie_titles.csv") # Path of the file. 
-    df.to_pickle("data\movie_titles.pkl")
+   
 
     path_data = 'data/' + args.data + ".pkl"
     data_file = open(path_data, 'rb')
