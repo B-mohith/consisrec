@@ -61,7 +61,7 @@ def main():
     parser.add_argument('--embed_dim', type=int, default=64, metavar='N', help='embedding size')
     parser.add_argument('--lr', type=float, default=0.001, metavar='LR', help='learning rate')
     parser.add_argument('--test_batch_size', type=int, default=1000, metavar='N', help='input batch size for testing')
-    parser.add_argument('--epochs', type=int, default=2, metavar='N', help='number of epochs to train')
+    parser.add_argument('--epochs', type=int, default=10, metavar='N', help='number of epochs to train')
     parser.add_argument('--load_from_checkpoint', type=bool, default=False, help='Load from checkpoint or not')
     parser.add_argument('--device', type=str, default='cpu', help='cpu or cuda')
     parser.add_argument('--data', type = str, default='filmtrust')
