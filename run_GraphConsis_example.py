@@ -20,11 +20,14 @@ import os
 import sys
 from GraphConsis import GraphConsis
 import pandas as pd 
+import torch_geometric.loader as loader
+from torch_geometric.data import ClusterData
 
-def train(model, device, train_loader, optimizer, epoch, best_rmse, best_mae):
+
+def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best_mae):
     model.train()
     running_loss = 0.0
-    for i, data in enumerate(train_loader, 0):
+    for i, data in enumerate(train_cluster_loader, 0):
         batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
