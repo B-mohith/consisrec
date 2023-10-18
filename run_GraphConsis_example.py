@@ -22,12 +22,30 @@ from GraphConsis import GraphConsis
 import pandas as pd 
 import torch_geometric.loader as loader
 from torch_geometric.data import ClusterData
+import metis
+
+
+def partition_graph(adjacency_matrix, num_partitions):
+  """Partitions a graph into the given number of partitions.
+
+  Args:
+    adjacency_matrix: A square matrix representing the graph.
+    num_partitions: The number of partitions to create.
+
+  Returns:
+    A list of partition assignments, where each element in the list is a list of
+    node IDs in the partition.
+  """
+
+  partition_assignments = metis.part_graph(num_partitions, adjacency_matrix)
+  return partition_assignments
 
 
 def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best_mae):
     model.train()
     running_loss = 0.0
     for i, data in enumerate(train_cluster_loader, 0):
+        partition_assignments = partition_graph(adjacency_matrix, 2)
         batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
@@ -106,7 +124,7 @@ def main():
                                               torch.FloatTensor(valid_r))
     testset = torch.utils.data.TensorDataset(torch.LongTensor(test_u), torch.LongTensor(test_v),
                                              torch.FloatTensor(test_r))
-    train_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True)
+    train_cluster_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, partition_assignments=partition_assignments)
     valid_loader = torch.utils.data.DataLoader(validset, batch_size=args.test_batch_size, shuffle=True)
     test_loader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch_size, shuffle=True)
     num_users = history_u_lists.__len__()
