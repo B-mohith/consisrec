@@ -189,7 +189,7 @@ def main():
 
     for epoch in range(1, args.epochs + 1):
 
-        train(graphconsis, device, train_loader, optimizer, epoch, best_rmse, best_mae)
+        train(graphconsis, device, train_cluster_loader, optimizer, epoch, best_rmse, best_mae)
         expected_rmse, mae = test(graphconsis, device, valid_loader)
         if best_rmse > expected_rmse:
             best_rmse = expected_rmse
