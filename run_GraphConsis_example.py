@@ -94,12 +94,13 @@ def main():
     device = torch.device(args.device)
 
     embed_dim = args.embed_dim
-    with open(' data/ciao.pkl', 'rb') as f:
-      adjacency_matrix = pickle.load(f)
+    
    
 
     path_data = 'data/' + args.data + ".pkl"
     data_file = open(path_data, 'rb')
+    with open( path_data, 'rb') as f:
+        adjacency_matrix = pickle.load(f)
 
     history_u_lists, history_ur_lists, history_v_lists, history_vr_lists, traindata, validdata, testdata, social_adj_lists, item_adj_lists, ratings_list = pickle.load(
         data_file)
