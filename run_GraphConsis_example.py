@@ -42,10 +42,10 @@ def convert_to_adjacency_lists(adjacency_matrix):
 def partition_graph(adjacency_matrix, num_partitions):
     print("bye")
     # Convert the adjacency matrix to adjacency lists.
-    adjacency_lists = convert_to_adjacency_lists(adjacency_matrix)
+    #adjacency_lists = convert_to_adjacency_lists(adjacency_matrix)
 
     # Partition the graph.
-    partition_assignments = metis.part_graph(adjacency_lists, num_partitions)
+    partition_assignments = metis.part_graph(social_adj_lists, num_partitions)
 
     return partition_assignments
 
