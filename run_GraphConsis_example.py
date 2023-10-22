@@ -24,7 +24,32 @@ import torch_geometric.loader as loader
 from torch_geometric.data import ClusterData
 import metis
 
+import metis
 
+def convert_to_adjacency_lists(adjacency_matrix):
+    # Initialize an empty list to store adjacency lists.
+    adjacency_lists = []
+
+    # Iterate through each row in the adjacency_matrix.
+    for row in adjacency_matrix:
+        # Extract the indices of non-zero elements as neighbors.
+        neighbors = [i for i, val in enumerate(row) if val != 0]
+
+        # Append the list of neighbors to adjacency_lists.
+        adjacency_lists.append(neighbors)
+
+    return adjacency_lists
+
+def partition_graph(adjacency_matrix, num_partitions):
+    # Convert the adjacency matrix to adjacency lists.
+    adjacency_lists = convert_to_adjacency_lists(adjacency_matrix)
+
+    # Partition the graph.
+    partition_assignments = metis.part_graph(adjacency_lists, num_partitions)
+
+    return partition_assignments
+
+'''
 def partition_graph(adjacency_matrix, num_partitions):
   """Partitions a graph into the given number of partitions.
 
@@ -41,6 +66,7 @@ def partition_graph(adjacency_matrix, num_partitions):
   partition_assignments = metis.part_graph(adjacency_matrix, 3)
 
   return partition_assignments
+  '''
 
 
 
