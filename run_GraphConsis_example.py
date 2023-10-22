@@ -94,6 +94,8 @@ def main():
     device = torch.device(args.device)
 
     embed_dim = args.embed_dim
+    with open('ciao.pkl', 'rb') as f:
+      adjacency_matrix = pickle.load(f)
    
 
     path_data = 'data/' + args.data + ".pkl"
