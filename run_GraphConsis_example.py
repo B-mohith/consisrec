@@ -24,9 +24,8 @@ import torch_geometric.loader as loader
 from torch_geometric.data import ClusterData
 import metis
 
-import metis
-
 def convert_to_adjacency_lists(adjacency_matrix):
+    print("hi")
     # Initialize an empty list to store adjacency lists.
     adjacency_lists = []
 
@@ -41,6 +40,7 @@ def convert_to_adjacency_lists(adjacency_matrix):
     return adjacency_lists
 
 def partition_graph(adjacency_matrix, num_partitions):
+    print("bye")
     # Convert the adjacency matrix to adjacency lists.
     adjacency_lists = convert_to_adjacency_lists(adjacency_matrix)
 
@@ -76,11 +76,11 @@ def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best
     for i, data in enumerate(train_cluster_loader, 0):
         partition_assignments = partition_graph(adjacency_matrix, 2)
         print(1)
-        batch_nodes_u = data.x[partition_assignments[0]]
-        batch_nodes_v = data.x[partition_assignments[1]]
-        labels_list = data.y
+        #batch_nodes_u = data.x[partition_assignments[0]]
+        #batch_nodes_v = data.x[partition_assignments[1]]
+        #labels_list = data.y
         print(2)
-        #batch_nodes_u, batch_nodes_v, labels_list = data
+        batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
         loss.backward()
