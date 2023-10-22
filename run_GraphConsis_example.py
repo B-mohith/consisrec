@@ -37,6 +37,7 @@ def partition_graph(adjacency_matrix, num_partitions):
     node IDs in the partition.
   """
 
+  adjacency_matrix = np.array(adjacency_matrix)
   # Check the shape of the adjacency matrix.
   if adjacency_matrix.shape[1] != 2:
     # Reshape the adjacency matrix to two dimensions.
