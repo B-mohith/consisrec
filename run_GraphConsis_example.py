@@ -75,9 +75,11 @@ def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best
     running_loss = 0.0
     for i, data in enumerate(train_cluster_loader, 0):
         partition_assignments = partition_graph(adjacency_matrix, 2)
+        print(1)
         batch_nodes_u = data.x[partition_assignments[0]]
         batch_nodes_v = data.x[partition_assignments[1]]
         labels_list = data.y
+        print(2)
         #batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
@@ -188,6 +190,7 @@ def main():
     endure_count = 0
 
     for epoch in range(1, args.epochs + 1):
+        print(3)
 
         train(graphconsis, device, train_cluster_loader, optimizer, epoch, best_rmse, best_mae)
         expected_rmse, mae = test(graphconsis, device, valid_loader)
