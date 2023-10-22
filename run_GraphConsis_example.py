@@ -37,14 +37,8 @@ def partition_graph(adjacency_matrix, num_partitions):
     node IDs in the partition.
   """
 
-  adjacency_matrix = np.array(adjacency_matrix)
-  # Check the shape of the adjacency matrix.
-  if adjacency_matrix.shape[0] != 2:
-    # Reshape the adjacency matrix to two dimensions.
-    adjacency_matrix = adjacency_matrix.reshape((adjacency_matrix.shape[0], 2))
-
   # Partition the graph.
-  (partition_assignments, _, _, _) = metis.part_graph(adjacency_matrix, num_partitions)
+  partition_assignments = metis.part_graph(adjacency_matrix, 3)
 
   return partition_assignments
 
