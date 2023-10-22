@@ -37,8 +37,16 @@ def partition_graph(adjacency_matrix, num_partitions):
     node IDs in the partition.
   """
 
-  (partition_assignments, _, _, _) = metis.part_graph(adjacency_matrix,3)
+  # Check the shape of the adjacency matrix.
+  if adjacency_matrix.shape[1] != 2:
+    # Reshape the adjacency matrix to two dimensions.
+    adjacency_matrix = adjacency_matrix.reshape((adjacency_matrix.shape[0], 2))
+
+  # Partition the graph.
+  (partition_assignments, _, _, _) = metis.part_graph(adjacency_matrix, num_partitions)
+
   return partition_assignments
+
 
 
 def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best_mae):
