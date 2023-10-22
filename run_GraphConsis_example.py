@@ -45,7 +45,7 @@ def partition_graph(adjacency_matrix, num_partitions):
     #adjacency_lists = convert_to_adjacency_lists(adjacency_matrix)
 
     # Partition the graph.
-    partition_assignments = metis.part_graph(social_adj_lists, num_partitions)
+    partition_assignments = metis.part_graph(adjacency_matrix, num_partitions)
 
     return partition_assignments
 
@@ -161,7 +161,7 @@ def main():
                                               torch.FloatTensor(valid_r))
     testset = torch.utils.data.TensorDataset(torch.LongTensor(test_u), torch.LongTensor(test_v),
                                              torch.FloatTensor(test_r))
-    train_cluster_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, partition_assignments=partition_graph(adjacency_matrix, 3))
+    train_cluster_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, partition_assignments=partition_graph(social_adj_lists, 3))
     print("mohith")
     valid_loader = torch.utils.data.DataLoader(validset, batch_size=args.test_batch_size, shuffle=True)
     test_loader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch_size, shuffle=True)
