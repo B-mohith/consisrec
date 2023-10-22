@@ -49,7 +49,7 @@ def train(model, device, train_cluster_loader, optimizer, epoch, best_rmse, best
         batch_nodes_u = data.x[partition_assignments[0]]
         batch_nodes_v = data.x[partition_assignments[1]]
         labels_list = data.y
-       ''' batch_nodes_u, batch_nodes_v, labels_list = data'''
+        #batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
         loss.backward()
