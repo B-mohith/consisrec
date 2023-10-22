@@ -162,6 +162,7 @@ def main():
     testset = torch.utils.data.TensorDataset(torch.LongTensor(test_u), torch.LongTensor(test_v),
                                              torch.FloatTensor(test_r))
     train_cluster_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size, shuffle=True, partition_assignments=partition_graph(adjacency_matrix, 3))
+    print("mohith")
     valid_loader = torch.utils.data.DataLoader(validset, batch_size=args.test_batch_size, shuffle=True)
     test_loader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch_size, shuffle=True)
     num_users = history_u_lists.__len__()
