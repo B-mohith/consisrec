@@ -37,7 +37,7 @@ def partition_graph(adjacency_matrix, num_partitions):
     node IDs in the partition.
   """
 
-  partition_assignments = metis.part_graph(adjacency_matrix,3)
+  (partition_assignments, _, _, _) = metis.part_graph(adjacency_matrix,3)
   return partition_assignments
 
 
